@@ -1,0 +1,15 @@
+.vscode/
+.DS_Store
+.idea/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.python-version
+.tox/
+.cache
+.pytest_cache/
+docs/_build/
+*.tar.gz
+*.whl
+dist/
