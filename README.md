@@ -1,10 +1,10 @@
 # pAPI SDK
 
-![main workflow](https://github.com/ostrovok-team/papi-sdk-python/workflows/Main/badge.svg)
+![main workflow](https://github.com/emergingtravel/papi-sdk-python/workflows/Main/badge.svg)
 ![pypi version](https://img.shields.io/pypi/v/papi-sdk.svg)
 ![pypi downloads](https://img.shields.io/pypi/dm/papi-sdk.svg)
 ![python versions](https://img.shields.io/pypi/pyversions/papi-sdk.svg)
-![license](https://img.shields.io/github/license/ostrovok-team/papi-sdk-python.svg)
+![license](https://img.shields.io/github/license/emergingtravel/papi-sdk-python.svg)
 
 pAPI SDK is a python SDK for [ETG APIv3](https://docs.emergingtravel.com/).
 The abbreviation "pAPI" stands for "Partner API". 
