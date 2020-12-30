@@ -1,7 +1,7 @@
 # Changelog
 
 ## unreleased
-- Moving examples outside the module #6
+- Moving examples outside the module [#6](https://github.com/ostrovok-team/papi-sdk-python/pull/6)
 
 ## [v1.0.1](https://github.com/ostrovok-team/papi-sdk-python/releases/tag/v1.0.1) - 2020-12-30
 
