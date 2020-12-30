@@ -33,7 +33,7 @@ class HotelOrderBookingFinishUser(BaseModel):
 
 
 class BaseHotelOrderBookingFinishPartner(BaseModel):
-    amount_sell_b2b2c: str
+    amount_sell_b2b2c: Optional[str]
     partner_order_id: Optional[str]
 
 
