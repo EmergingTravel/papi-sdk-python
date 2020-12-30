@@ -1,0 +1,31 @@
+name: Code Quality
+on: [push, pull_request]
+
+jobs:
+  lint:
+    name: Lint project files
+    runs-on: Ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Run image
+        uses: abatilo/actions-poetry@v2.0.0
+        with:
+          poetry-version: 1.1.4
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          poetry export -f requirements.txt --dev --output requirements.txt
+          pip install -r requirements.txt
+      - name: autoflake
+        continue-on-error: true
+        run: autoflake -r --check papi_sdk
+      - name: isort
+        continue-on-error: true
+        run: isort --check-only --diff papi_sdk
+      - name: black
+        continue-on-error: true
+        run: black --check --diff papi_sdk
