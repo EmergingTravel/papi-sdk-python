@@ -1,8 +1,21 @@
 [tool.poetry]
 name = "papi-sdk"
-version = "0.0.2"
+version = "1.0.0"
 description = "pAPI SDK is a Python SDK for ETG APIv3"
-authors = ["Stanislav Losev <stanislav.losev@ostrovok.ru>", "Ivan Elfimov <ivan.elfimov@ostrovok.ru>"]
+authors = [
+    "Stanislav Losev <stanislav.losev@ostrovok.ru>",
+    "Ivan Elfimov <ivan.elfimov@ostrovok.ru>"
+]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/ostrovok-team/papi-sdk-python"
+homepage = "https://github.com/ostrovok-team/papi-sdk-python"
+keywords = ["sdk"]
+classifiers = [
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Utilities"
+]
 packages = [
     {include = "papi_sdk"}
 ]

@@ -5,13 +5,15 @@ The abbreviation "pAPI" stands for "Partner API".
 
 ## Requirements
 
-- python 3.6+
+- Python 3.6+
 - requests
 - pydantic
 
 ## Installation
 
-> pip install papi-sdk
+```
+pip install papi-sdk
+```
 
 ## Quickstart
 
