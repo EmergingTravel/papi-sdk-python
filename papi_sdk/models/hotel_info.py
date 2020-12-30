@@ -35,7 +35,7 @@ class Region(BaseModel):
 
 
 class RgExt(BaseModel):
-    rg_class: Optional[int] = Field(None, alias='class')
+    rg_class: Optional[int] = Field(None, alias="class")
     quality: Optional[int]
     sex: Optional[int]
     bathroom: Optional[int]

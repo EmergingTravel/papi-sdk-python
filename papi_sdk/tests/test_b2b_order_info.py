@@ -23,11 +23,9 @@ class TestB2BOrderInfo(BaseTest):
             ordering_by=OrderingBy.FIELD_CHECKIN_AT,
         )
         paginator = Pagination(page_number=1, page_size=1)
-        return B2BHotelOrderInfoDataRequest(
-            ordering=ordering, pagination=paginator
-        )
+        return B2BHotelOrderInfoDataRequest(ordering=ordering, pagination=paginator)
 
-    @patch('papi_sdk.APIv3._post_request')
+    @patch("papi_sdk.APIv3._post_request")
     def test_ok(self, m_post):
         m_post.return_value = b2b_order_info_response
         result = self.client.b2b_order_info(data=self._create_request())

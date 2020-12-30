@@ -11,7 +11,7 @@ autoflake:
 	autoflake -i -r papi_sdk
 
 isort:
-	isort -rc papi_sdk
+	isort papi_sdk
 
 black:
 	black papi_sdk

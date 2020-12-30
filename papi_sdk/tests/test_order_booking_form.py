@@ -25,7 +25,7 @@ class TestOrderBookingForm(BaseTest):
         }
     )
 
-    @patch('papi_sdk.APIv3._post_request')
+    @patch("papi_sdk.APIv3._post_request")
     def test_b2b_ok(self, m_post):
         m_post.return_value = b2b_order_booking_form_response
         result = self.client.b2b_order_booking_form(data=self.request)
@@ -33,7 +33,7 @@ class TestOrderBookingForm(BaseTest):
         self.assertEqual(result.status.value, self.status_ok)
         self.assertIsInstance(result.data, B2BHotelOrderBookingFormData)
 
-    @patch('papi_sdk.APIv3._post_request')
+    @patch("papi_sdk.APIv3._post_request")
     def test_affiliate_ok(self, m_post):
         m_post.return_value = affiliate_order_booking_form_response
         result = self.client.affiliate_order_booking_form(data=self.request)
@@ -49,7 +49,7 @@ class TestOrderBookingForm(BaseTest):
         with self.assertRaises(TypeError):
             self.client.b2b_order_booking_form()
 
-    @patch('papi_sdk.APIv3._post_request')
+    @patch("papi_sdk.APIv3._post_request")
     def test_double_booking_form(self, m_post):
         m_post.return_value = order_booking_form_error
         result = self.client.b2b_order_booking_form(data=self.request)

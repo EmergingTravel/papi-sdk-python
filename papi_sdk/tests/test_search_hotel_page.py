@@ -48,7 +48,7 @@ class TestSearchHotelPage(BaseTest):
         }
     )
 
-    @patch('papi_sdk.APIv3._post_request')
+    @patch("papi_sdk.APIv3._post_request")
     def test_b2b_ok(self, m_post):
         m_post.return_value = b2b_hotel_page_response
         result = self.client.b2b_search_hotel_page(data=self.b2b_request)
@@ -56,12 +56,10 @@ class TestSearchHotelPage(BaseTest):
         self.assertEqual(result.status.value, self.status_ok)
         self.assertIsInstance(result.data, HotelPageB2BSearchData)
 
-    @patch('papi_sdk.APIv3._post_request')
+    @patch("papi_sdk.APIv3._post_request")
     def test_affiliate_ok(self, m_post):
         m_post.return_value = affiliate_hotel_page_response
-        result = self.client.affiliate_search_hotel_page(
-            data=self.affiliate_request
-        )
+        result = self.client.affiliate_search_hotel_page(data=self.affiliate_request)
 
         self.assertEqual(result.status.value, self.status_ok)
         self.assertIsInstance(result.data, HotelPageAffiliateSearchData)

@@ -4,13 +4,9 @@ from papi_sdk.models.order_booking_finish.base import (
 )
 
 
-class AffiliateHotelOrderBookingFinishPartner(
-    BaseHotelOrderBookingFinishPartner
-):
+class AffiliateHotelOrderBookingFinishPartner(BaseHotelOrderBookingFinishPartner):
     pass
 
 
-class AffiliateHotelOrderBookingFinishRequest(
-    BaseHotelOrderBookingFinishRequest
-):
+class AffiliateHotelOrderBookingFinishRequest(BaseHotelOrderBookingFinishRequest):
     partner: AffiliateHotelOrderBookingFinishPartner

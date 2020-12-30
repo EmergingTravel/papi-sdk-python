@@ -5,8 +5,8 @@ from pydantic import BaseModel
 
 
 class Status(str, Enum):
-    STATUS_OK = 'ok'
-    STATUS_ERROR = 'error'
+    STATUS_OK = "ok"
+    STATUS_ERROR = "error"
 
 
 class BaseResponse(BaseModel):

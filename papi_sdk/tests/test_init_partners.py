@@ -32,7 +32,7 @@ class TestHotelInfo(BaseTest):
         }
     )
 
-    @patch('papi_sdk.APIv3._post_request')
+    @patch("papi_sdk.APIv3._post_request")
     def test_ok(self, m_post):
         m_post.return_value = init_partner_ok_response
         result = self.client.init_partners(data=self.request_data)
@@ -47,7 +47,7 @@ class TestHotelInfo(BaseTest):
         with self.assertRaises(TypeError):
             self.client.init_partners()
 
-    @patch('papi_sdk.APIv3._post_request')
+    @patch("papi_sdk.APIv3._post_request")
     def test_error_invalid_cvc(self, m_post):
         m_post.return_value = init_partner_error_response
         result = self.client.init_partners(data=self.request_data)

@@ -7,19 +7,19 @@ from pydantic import BaseModel
 
 
 class OrderingType(str, Enum):
-    ASC = 'asc'
-    DESC = 'desc'
+    ASC = "asc"
+    DESC = "desc"
 
 
 class OrderingBy(str, Enum):
-    FIELD_CANCELLED_AT = 'cancelled_at'
-    FIELD_CHECKIN_AT = 'checkin_at'
-    FIELD_CHECKOUT_AT = 'checkout_at'
-    FIELD_CREATED_AT = 'created_at'
-    FIELD_FREE_CANCELLATION_BEFORE = 'free_cancellation_before'
-    FIELD_PAID_AT = 'paid_at'
-    FIELD_PAYMENT_DUE = 'payment_due'
-    FIELD_PAYMENT_PENDING = 'payment_pending'
+    FIELD_CANCELLED_AT = "cancelled_at"
+    FIELD_CHECKIN_AT = "checkin_at"
+    FIELD_CHECKOUT_AT = "checkout_at"
+    FIELD_CREATED_AT = "created_at"
+    FIELD_FREE_CANCELLATION_BEFORE = "free_cancellation_before"
+    FIELD_PAID_AT = "paid_at"
+    FIELD_PAYMENT_DUE = "payment_due"
+    FIELD_PAYMENT_PENDING = "payment_pending"
 
 
 # request

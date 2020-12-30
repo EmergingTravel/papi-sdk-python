@@ -6,23 +6,13 @@ from requests.auth import HTTPBasicAuth
 from papi_sdk.endpoints.endpoints import Endpoint
 from papi_sdk.exceptions.base import InvalidAuthData
 from papi_sdk.models.hotel_info import HotelInfoRequest, HotelInfoResponse
-from papi_sdk.models.hotel_info_dump import (
-    HotelInfoDumpRequest,
-    HotelInfoDumpResponse,
-)
-from papi_sdk.models.init_partners import (
-    InitPartnerRequest,
-    InitPartnerResponse,
-)
+from papi_sdk.models.hotel_info_dump import HotelInfoDumpRequest, HotelInfoDumpResponse
+from papi_sdk.models.init_partners import InitPartnerRequest, InitPartnerResponse
 from papi_sdk.models.order_booking_finish.affiliate import (
     AffiliateHotelOrderBookingFinishRequest,
 )
-from papi_sdk.models.order_booking_finish.b2b import (
-    B2BHotelOrderBookingFinishRequest,
-)
-from papi_sdk.models.order_booking_finish.base import (
-    HotelOrderBookingFinishResponse,
-)
+from papi_sdk.models.order_booking_finish.b2b import B2BHotelOrderBookingFinishRequest
+from papi_sdk.models.order_booking_finish.base import HotelOrderBookingFinishResponse
 from papi_sdk.models.order_booking_finish_status import (
     HotelOrderBookingFinishStatusRequest,
     HotelOrderBookingFinishStatusResponse,
@@ -53,18 +43,12 @@ from papi_sdk.models.search.hotels.affiliate import (
     AffiliateHotelsRequest,
     AffiliateHotelsResponse,
 )
-from papi_sdk.models.search.hotels.b2b import (
-    B2BHotelsRequest,
-    B2BHotelsResponse,
-)
+from papi_sdk.models.search.hotels.b2b import B2BHotelsRequest, B2BHotelsResponse
 from papi_sdk.models.search.region.affiliate import (
     AffiliateRegionRequest,
     AffiliateRegionResponse,
 )
-from papi_sdk.models.search.region.b2b import (
-    B2BRegionRequest,
-    B2BRegionResponse,
-)
+from papi_sdk.models.search.region.b2b import B2BRegionRequest, B2BRegionResponse
 
 
 class APIv3:
@@ -76,7 +60,7 @@ class APIv3:
     @staticmethod
     def _get_key_data(key: str) -> Tuple[str, str]:
         try:
-            key_id, key = key.split(':')
+            key_id, key = key.split(":")
             return key_id, key
         except ValueError:
             raise InvalidAuthData(key)
@@ -167,9 +151,7 @@ class APIv3:
         :param requests_kwargs: requests kwargs
         """
         response = self._post_request(
-            Endpoint.ORDER_BOOKING_FORM.value,
-            data=data.json(),
-            **requests_kwargs
+            Endpoint.ORDER_BOOKING_FORM.value, data=data.json(), **requests_kwargs
         )
         return B2BHotelOrderBookingFormResponse(**response)
 
@@ -189,9 +171,7 @@ class APIv3:
         :param requests_kwargs: requests kwargs
         """
         response = self._post_request(
-            Endpoint.ORDER_BOOKING_FORM.value,
-            data=data.json(),
-            **requests_kwargs
+            Endpoint.ORDER_BOOKING_FORM.value, data=data.json(), **requests_kwargs
         )
         return AffiliateHotelOrderBookingFormResponse(**response)
 
@@ -208,9 +188,7 @@ class APIv3:
         :param requests_kwargs: requests kwargs
         """
         response = self._post_request(
-            Endpoint.ORDER_BOOKING_FINISH.value,
-            data=data.json(),
-            **requests_kwargs
+            Endpoint.ORDER_BOOKING_FINISH.value, data=data.json(), **requests_kwargs
         )
         return HotelOrderBookingFinishResponse(**response)
 
@@ -227,9 +205,7 @@ class APIv3:
         :param requests_kwargs: requests kwargs
         """
         response = self._post_request(
-            Endpoint.ORDER_BOOKING_FINISH.value,
-            data=data.json(),
-            **requests_kwargs
+            Endpoint.ORDER_BOOKING_FINISH.value, data=data.json(), **requests_kwargs
         )
         return HotelOrderBookingFinishResponse(**response)
 
@@ -304,9 +280,7 @@ class APIv3:
         :param requests_kwargs: requests kwargs
         """
         response = self._post_request(
-            Endpoint.SEARCH_HOTEL_PAGE.value,
-            data=data.json(),
-            **requests_kwargs
+            Endpoint.SEARCH_HOTEL_PAGE.value, data=data.json(), **requests_kwargs
         )
         return B2BHotelPageResponse(**response)
 
@@ -323,9 +297,7 @@ class APIv3:
         :param requests_kwargs: requests kwargs
         """
         response = self._post_request(
-            Endpoint.SEARCH_HOTEL_PAGE.value,
-            data=data.json(),
-            **requests_kwargs
+            Endpoint.SEARCH_HOTEL_PAGE.value, data=data.json(), **requests_kwargs
         )
         return AffiliateHotelPageResponse(**response)
 

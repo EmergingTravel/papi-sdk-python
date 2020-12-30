@@ -6,7 +6,7 @@ from papi_sdk.tests.test_base import BaseTest
 
 
 class TestOverview(BaseTest):
-    @patch('papi_sdk.APIv3._get_request')
+    @patch("papi_sdk.APIv3._get_request")
     def test_ok(self, m_get):
         m_get.return_value = overview_response
         result = self.client.overview()

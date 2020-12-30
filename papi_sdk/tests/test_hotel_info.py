@@ -11,11 +11,11 @@ from papi_sdk.tests.test_base import BaseTest
 
 
 class TestHotelInfo(BaseTest):
-    @patch('papi_sdk.APIv3._post_request')
+    @patch("papi_sdk.APIv3._post_request")
     def test_ok(self, m_post):
         m_post.return_value = hotel_info_data
         result = self.client.get_hotel_info(
-            data=HotelInfoRequest(language='ru', id='test_hotel')
+            data=HotelInfoRequest(language="ru", id="test_hotel")
         )
 
         self.assertEqual(result.status.value, self.status_ok)
@@ -29,11 +29,11 @@ class TestHotelInfo(BaseTest):
         with self.assertRaises(TypeError):
             self.client.get_hotel_info()
 
-    @patch('papi_sdk.APIv3._post_request')
+    @patch("papi_sdk.APIv3._post_request")
     def test_error_hotel_not_found(self, m_post):
         m_post.return_value = hotel_info_error_response
         result = self.client.get_hotel_info(
-            data=HotelInfoRequest(language='en', id='not_exist')
+            data=HotelInfoRequest(language="en", id="not_exist")
         )
 
         self.assertEqual(result.status.value, self.status_error)

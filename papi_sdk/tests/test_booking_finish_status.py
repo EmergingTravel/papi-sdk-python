@@ -14,11 +14,11 @@ from papi_sdk.tests.test_base import BaseTest
 
 
 class TestOrderBookingFinishStatus(BaseTest):
-    @patch('papi_sdk.APIv3._post_request')
+    @patch("papi_sdk.APIv3._post_request")
     def test_ok(self, m_post):
         m_post.return_value = order_booking_finish_status_response
         result = self.client.order_booking_finish_status(
-            data=HotelOrderBookingFinishStatusRequest(partner_order_id='test')
+            data=HotelOrderBookingFinishStatusRequest(partner_order_id="test")
         )
 
         self.assertEqual(result.status.value, self.status_ok)
@@ -34,13 +34,11 @@ class TestOrderBookingFinishStatus(BaseTest):
         with self.assertRaises(TypeError):
             self.client.order_booking_finish_status()
 
-    @patch('papi_sdk.APIv3._post_request')
+    @patch("papi_sdk.APIv3._post_request")
     def test_error_hotel_not_found(self, m_post):
         m_post.return_value = order_booking_finish_status_response_error
         result = self.client.order_booking_finish_status(
-            data=HotelOrderBookingFinishStatusRequest(
-                partner_order_id='not_found'
-            )
+            data=HotelOrderBookingFinishStatusRequest(partner_order_id="not_found")
         )
 
         self.assertEqual(result.status.value, self.status_error)

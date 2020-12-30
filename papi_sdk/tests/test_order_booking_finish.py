@@ -55,7 +55,7 @@ class TestOrderBookingForm(BaseTest):
         }
     )
 
-    @patch('papi_sdk.APIv3._post_request')
+    @patch("papi_sdk.APIv3._post_request")
     def test_b2b_ok(self, m_post):
         m_post.return_value = booking_order_finish_response
         result = self.client.b2b_order_booking_finish(data=self.request)
@@ -72,7 +72,7 @@ class TestOrderBookingForm(BaseTest):
         with self.assertRaises(TypeError):
             self.client.b2b_order_booking_finish()
 
-    @patch('papi_sdk.APIv3._post_request')
+    @patch("papi_sdk.APIv3._post_request")
     def test_hash_not_found_error(self, m_post):
         m_post.return_value = booking_order_finish_book_hash_not_found_error
         result = self.client.b2b_order_booking_finish(data=self.request)

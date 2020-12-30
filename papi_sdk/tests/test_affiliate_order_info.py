@@ -29,7 +29,7 @@ class TestAffiliateOrderInfo(BaseTest):
             ordering=ordering, pagination=paginator
         )
 
-    @patch('papi_sdk.APIv3._post_request')
+    @patch("papi_sdk.APIv3._post_request")
     def test_ok(self, m_post):
         m_post.return_value = affiliate_order_info_response
         result = self.client.affiliate_order_info(data=self._create_request())
@@ -39,9 +39,7 @@ class TestAffiliateOrderInfo(BaseTest):
 
     def test_validation_error(self):
         with self.assertRaises(ValidationError):
-            self.client.affiliate_order_info(
-                data=AffiliateHotelOrderInfoDataRequest()
-            )
+            self.client.affiliate_order_info(data=AffiliateHotelOrderInfoDataRequest())
 
     def test_type_error(self):
         with self.assertRaises(TypeError):
