@@ -1,9 +1,9 @@
 from datetime import datetime, timedelta
 
 from papi_sdk import APIv3
-from papi_sdk.examples.booking_finish import make_booking_finish
-from papi_sdk.examples.booking_form import make_booking_form
-from papi_sdk.examples.search_hotelpage import get_hotel_page
+from examples.search_hotelpage import get_hotel_page
+from examples.booking_finish import make_booking_finish
+from examples.booking_form import make_booking_form
 
 if __name__ == "__main__":
     papi = APIv3(key="your_key")
