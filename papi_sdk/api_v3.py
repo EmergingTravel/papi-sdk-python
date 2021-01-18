@@ -1,6 +1,6 @@
+import importlib.metadata
 from typing import Tuple
 
-import pkg_resources
 import requests
 from requests.auth import HTTPBasicAuth
 
@@ -51,7 +51,8 @@ from papi_sdk.models.search.region.affiliate import (
 )
 from papi_sdk.models.search.region.b2b import B2BRegionRequest, B2BRegionResponse
 
-PAPI_VERSION_SDK_HEADER = "PAPI-Version-SDK"
+_PAPI_SDK_VERSION_HEADER = "PAPI-SDK-Version"
+_DISTRIBUTION_METADATA = importlib.metadata.metadata("papi-sdk")
 
 
 class APIv3:
@@ -59,7 +60,7 @@ class APIv3:
         self.key_id, self.key = self._get_key_data(key)
         self.session = requests.Session()
         self.session.auth = HTTPBasicAuth(self.key_id, self.key)
-        self.version = pkg_resources.get_distribution("papi_sdk").version
+        self.version = _DISTRIBUTION_METADATA["Version"]
 
     @staticmethod
     def _get_key_data(key: str) -> Tuple[str, str]:
@@ -76,9 +77,9 @@ class APIv3:
         Inner method for GET requests.
         """
         if "headers" in requests_kwargs:
-            requests_kwargs["headers"][PAPI_VERSION_SDK_HEADER] = self.version
+            requests_kwargs["headers"][_PAPI_SDK_VERSION_HEADER] = self.version
         else:
-            requests_kwargs["headers"] = {PAPI_VERSION_SDK_HEADER: self.version}
+            requests_kwargs["headers"] = {_PAPI_SDK_VERSION_HEADER: self.version}
         response = self.session.get(endpoint, params=params, **requests_kwargs)
         return response.json()
 
@@ -89,9 +90,9 @@ class APIv3:
         Inner method for POST requests.
         """
         if "headers" in requests_kwargs:
-            requests_kwargs["headers"][PAPI_VERSION_SDK_HEADER] = self.version
+            requests_kwargs["headers"][_PAPI_SDK_VERSION_HEADER] = self.version
         else:
-            requests_kwargs["headers"] = {PAPI_VERSION_SDK_HEADER: self.version}
+            requests_kwargs["headers"] = {_PAPI_SDK_VERSION_HEADER: self.version}
         response = self.session.post(endpoint, json=json, **requests_kwargs)
         return response.json()
 
