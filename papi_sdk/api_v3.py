@@ -1,6 +1,6 @@
-import importlib.metadata
 from typing import Tuple
 
+import pkg_resources
 import requests
 from requests.auth import HTTPBasicAuth
 
@@ -51,16 +51,19 @@ from papi_sdk.models.search.region.affiliate import (
 )
 from papi_sdk.models.search.region.b2b import B2BRegionRequest, B2BRegionResponse
 
-_PAPI_SDK_VERSION_HEADER = "PAPI-SDK-Version"
-_DISTRIBUTION_METADATA = importlib.metadata.metadata("papi-sdk")
-
 
 class APIv3:
     def __init__(self, key: str):
         self.key_id, self.key = self._get_key_data(key)
         self.session = requests.Session()
         self.session.auth = HTTPBasicAuth(self.key_id, self.key)
-        self.version = _DISTRIBUTION_METADATA["Version"]
+
+        self._header = "PAPI-SDK-Version"
+        self._version = self._get_version()
+
+    @staticmethod
+    def _get_version() -> str:
+        return pkg_resources.get_distribution("papi_sdk").version
 
     @staticmethod
     def _get_key_data(key: str) -> Tuple[str, str]:
@@ -77,9 +80,9 @@ class APIv3:
         Inner method for GET requests.
         """
         if "headers" in requests_kwargs:
-            requests_kwargs["headers"][_PAPI_SDK_VERSION_HEADER] = self.version
+            requests_kwargs["headers"][self._header] = self._version
         else:
-            requests_kwargs["headers"] = {_PAPI_SDK_VERSION_HEADER: self.version}
+            requests_kwargs["headers"] = {self._header: self._version}
         response = self.session.get(endpoint, params=params, **requests_kwargs)
         return response.json()
 
@@ -90,9 +93,9 @@ class APIv3:
         Inner method for POST requests.
         """
         if "headers" in requests_kwargs:
-            requests_kwargs["headers"][_PAPI_SDK_VERSION_HEADER] = self.version
+            requests_kwargs["headers"][self._header] = self._version
         else:
-            requests_kwargs["headers"] = {_PAPI_SDK_VERSION_HEADER: self.version}
+            requests_kwargs["headers"] = {self._header: self._version}
         response = self.session.post(endpoint, json=json, **requests_kwargs)
         return response.json()
 
