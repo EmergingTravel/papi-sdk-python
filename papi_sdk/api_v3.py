@@ -1,4 +1,5 @@
-from typing import Tuple
+from sys import version
+from typing import Optional, Tuple
 
 import pkg_resources
 import requests
@@ -51,19 +52,15 @@ from papi_sdk.models.search.region.affiliate import (
 )
 from papi_sdk.models.search.region.b2b import B2BRegionRequest, B2BRegionResponse
 
+PYTHON_VERSION = f"python/{version}"
+REQUESTS_VERSION = f"{requests.__name__}/{requests.__version__}"
+
 
 class APIv3:
     def __init__(self, key: str):
         self.key_id, self.key = self._get_key_data(key)
         self.session = requests.Session()
         self.session.auth = HTTPBasicAuth(self.key_id, self.key)
-
-        self._header = "PAPI-SDK-Version"
-        self._version = self._get_version()
-
-    @staticmethod
-    def _get_version() -> str:
-        return pkg_resources.get_distribution("papi_sdk").version
 
     @staticmethod
     def _get_key_data(key: str) -> Tuple[str, str]:
@@ -73,16 +70,35 @@ class APIv3:
         except ValueError:
             raise InvalidAuthData(key)
 
+    @staticmethod
+    def _get_version() -> str:
+        return f"{__name__}/{pkg_resources.get_distribution('papi_sdk').version}"
+
+    def _add_user_agent(self, requests_kwargs: Optional[dict]) -> dict:
+        header_key = "headers"
+
+        versions = f"{PYTHON_VERSION} {REQUESTS_VERSION} {self._get_version()}"
+        versions = versions.replace("\n", " ")
+        user_agent = {"User-Agent": versions}
+
+        headers = requests_kwargs.get(header_key)
+        if not headers:
+            requests_kwargs[header_key] = user_agent
+            return requests_kwargs
+
+        if "User-Agent" in headers:
+            return requests_kwargs
+
+        requests_kwargs[header_key] = {**requests_kwargs[header_key], **user_agent}
+        return requests_kwargs
+
     def _get_request(
         self, endpoint: str, params: dict = None, **requests_kwargs
     ) -> dict:
         """
         Inner method for GET requests.
         """
-        if "headers" in requests_kwargs:
-            requests_kwargs["headers"][self._header] = self._version
-        else:
-            requests_kwargs["headers"] = {self._header: self._version}
+        requests_kwargs = self._add_user_agent(requests_kwargs)
         response = self.session.get(endpoint, params=params, **requests_kwargs)
         return response.json()
 
@@ -92,10 +108,7 @@ class APIv3:
         """
         Inner method for POST requests.
         """
-        if "headers" in requests_kwargs:
-            requests_kwargs["headers"][self._header] = self._version
-        else:
-            requests_kwargs["headers"] = {self._header: self._version}
+        requests_kwargs = self._add_user_agent(requests_kwargs)
         response = self.session.post(endpoint, json=json, **requests_kwargs)
         return response.json()
 
@@ -241,7 +254,7 @@ class APIv3:
         response = self._post_request(
             Endpoint.ORDER_BOOKING_FINISH_STATUS.value,
             data=data.json(),
-            **requests_kwargs
+            **requests_kwargs,
         )
         return HotelOrderBookingFinishStatusResponse(**response)
 
