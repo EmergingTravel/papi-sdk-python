@@ -1,8 +1,10 @@
-from typing import Tuple
+from sys import version_info
+from typing import Optional, Tuple
 
 import requests
 from requests.auth import HTTPBasicAuth
 
+from papi_sdk.__version__ import __name__, __version__
 from papi_sdk.endpoints.endpoints import Endpoint
 from papi_sdk.exceptions.base import InvalidAuthData
 from papi_sdk.models.hotel_info import HotelInfoRequest, HotelInfoResponse
@@ -50,6 +52,10 @@ from papi_sdk.models.search.region.affiliate import (
 )
 from papi_sdk.models.search.region.b2b import B2BRegionRequest, B2BRegionResponse
 
+PAPI_SDK_VERSION = f"{__name__}/{__version__}"
+REQUESTS_VERSION = f"{requests.__name__}/{requests.__version__}"
+PYTHON_VERSION = f"python/{version_info.major}.{version_info.minor}"
+
 
 class APIv3:
     def __init__(self, key: str):
@@ -65,12 +71,30 @@ class APIv3:
         except ValueError:
             raise InvalidAuthData(key)
 
+    @staticmethod
+    def _add_user_agent(requests_kwargs: Optional[dict]) -> dict:
+        header_key = "headers"
+        versions = f"{PAPI_SDK_VERSION} {REQUESTS_VERSION} ({PYTHON_VERSION})"
+        user_agent = {"User-Agent": versions}
+
+        headers = requests_kwargs.get(header_key)
+        if not headers:
+            requests_kwargs[header_key] = user_agent
+            return requests_kwargs
+
+        if "User-Agent" in headers:
+            return requests_kwargs
+
+        requests_kwargs[header_key] = {**requests_kwargs[header_key], **user_agent}
+        return requests_kwargs
+
     def _get_request(
         self, endpoint: str, params: dict = None, **requests_kwargs
     ) -> dict:
         """
         Inner method for GET requests.
         """
+        requests_kwargs = self._add_user_agent(requests_kwargs)
         response = self.session.get(endpoint, params=params, **requests_kwargs)
         return response.json()
 
@@ -80,6 +104,7 @@ class APIv3:
         """
         Inner method for POST requests.
         """
+        requests_kwargs = self._add_user_agent(requests_kwargs)
         response = self.session.post(endpoint, json=json, **requests_kwargs)
         return response.json()
 
@@ -225,7 +250,7 @@ class APIv3:
         response = self._post_request(
             Endpoint.ORDER_BOOKING_FINISH_STATUS.value,
             data=data.json(),
-            **requests_kwargs
+            **requests_kwargs,
         )
         return HotelOrderBookingFinishStatusResponse(**response)
 

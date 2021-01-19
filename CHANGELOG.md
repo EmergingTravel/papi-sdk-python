@@ -1,8 +1,7 @@
 # Changelog
 
 ## unreleased
-
-N/A
+- Add a version of the package to headers [#9](https://github.com/EmergingTravel/papi-sdk-python/issues/9)
 
 ## [v1.0.2](https://github.com/emergingtravel/papi-sdk-python/releases/tag/v1.0.2) - 2020-12-30
 
