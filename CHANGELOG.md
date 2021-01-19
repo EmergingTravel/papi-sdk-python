@@ -2,7 +2,11 @@
 
 ## unreleased
 - N/A
-  
+
+## [v1.1.1](https://github.com/emergingtravel/papi-sdk-python/releases/tag/v1.1.1) - 2021-01-19
+
+- Fix publish workflow step
+
 ## [v1.1.0](https://github.com/emergingtravel/papi-sdk-python/releases/tag/v1.1.0) - 2021-01-19
 
  - Add a version of the package to headers [#9](https://github.com/EmergingTravel/papi-sdk-python/issues/9)
