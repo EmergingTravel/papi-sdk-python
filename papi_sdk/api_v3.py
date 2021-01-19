@@ -4,7 +4,7 @@ from typing import Optional, Tuple
 import requests
 from requests.auth import HTTPBasicAuth
 
-from papi_sdk.__version__ import __title__, __version__
+from papi_sdk.__version__ import __name__, __version__
 from papi_sdk.endpoints.endpoints import Endpoint
 from papi_sdk.exceptions.base import InvalidAuthData
 from papi_sdk.models.hotel_info import HotelInfoRequest, HotelInfoResponse
@@ -52,7 +52,7 @@ from papi_sdk.models.search.region.affiliate import (
 )
 from papi_sdk.models.search.region.b2b import B2BRegionRequest, B2BRegionResponse
 
-PAPI_SDK_VERSION = f"{__title__}/{__version__}"
+PAPI_SDK_VERSION = f"{__name__}/{__version__}"
 REQUESTS_VERSION = f"{requests.__name__}/{requests.__version__}"
 PYTHON_VERSION = f"python/{version_info.major}.{version_info.minor}"
 
