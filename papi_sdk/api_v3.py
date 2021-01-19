@@ -1,10 +1,10 @@
-from sys import version
+from sys import version_info
 from typing import Optional, Tuple
 
-import pkg_resources
 import requests
 from requests.auth import HTTPBasicAuth
 
+from papi_sdk.__version__ import __title__, __version__
 from papi_sdk.endpoints.endpoints import Endpoint
 from papi_sdk.exceptions.base import InvalidAuthData
 from papi_sdk.models.hotel_info import HotelInfoRequest, HotelInfoResponse
@@ -52,8 +52,9 @@ from papi_sdk.models.search.region.affiliate import (
 )
 from papi_sdk.models.search.region.b2b import B2BRegionRequest, B2BRegionResponse
 
-PYTHON_VERSION = f"python/{version}"
+PAPI_SDK_VERSION = f"{__title__}/{__version__}"
 REQUESTS_VERSION = f"{requests.__name__}/{requests.__version__}"
+PYTHON_VERSION = f"python/{version_info.major}.{version_info.minor}"
 
 
 class APIv3:
@@ -71,14 +72,9 @@ class APIv3:
             raise InvalidAuthData(key)
 
     @staticmethod
-    def _get_version() -> str:
-        return f"{__name__}/{pkg_resources.get_distribution('papi_sdk').version}"
-
-    def _add_user_agent(self, requests_kwargs: Optional[dict]) -> dict:
+    def _add_user_agent(requests_kwargs: Optional[dict]) -> dict:
         header_key = "headers"
-
-        versions = f"{PYTHON_VERSION} {REQUESTS_VERSION} {self._get_version()}"
-        versions = versions.replace("\n", " ")
+        versions = f"{PAPI_SDK_VERSION} {REQUESTS_VERSION} ({PYTHON_VERSION})"
         user_agent = {"User-Agent": versions}
 
         headers = requests_kwargs.get(header_key)

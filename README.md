@@ -47,3 +47,5 @@ data = HotelInfoDumpRequest(language='ru')
 dump = papi.get_hotel_info_dump(data=data)
 print(dump.data.url)
 ```
+
+Note: if you don't provide your headers and specifically your `User-Agent` in requests options  then it will be automatically added, ex. `papi-sdk/v1.0.2 requests/2.25.1 (python/3.8)`
