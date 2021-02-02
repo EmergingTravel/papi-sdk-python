@@ -8,6 +8,7 @@
 
 pAPI SDK is a python SDK for [ETG APIv3](https://docs.emergingtravel.com/).
 The abbreviation "pAPI" stands for "Partner API". 
+To know more about the benefits of our API integration or to sign up please check our [website](https://www.ratehawk.com/lp/en/API).
 
 ## Requirements
 
