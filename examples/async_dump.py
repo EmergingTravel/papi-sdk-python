@@ -1,7 +1,7 @@
 """How to work with big zst dumps"""
-# pip install zstandard
 import asyncio
 
+# pip install zstandard
 from zstandard import ZstdDecompressor
 import json
 from asyncio import Semaphore
