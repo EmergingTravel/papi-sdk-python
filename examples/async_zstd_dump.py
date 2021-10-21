@@ -1,4 +1,23 @@
-"""How to work with big zst dumps"""
+"""
+ETG API provides hotel's static data dump in .zstd format.
+You can find more about the dump structure and the format in our documentation - https://docs.emergingtravel.com/#0b55c99a-7ef0-4a18-bbfe-fd1bdf35d08e
+
+Please note that uncompressed data could be more than 20GB.
+
+Below is an example of how to handle such large archive.
+
+For decompression, we will use the zstandard library which you can install using the command
+> pip install zstandard
+
+The script takes the path to the archive file,
+splits the whole file by 16MB chunks,
+extracts objects line by line (each line contains one hotel in JSON format) in async mode,
+and converts them into Python dicts which you can use in your inner logic.
+
+The main difference between async and sync modes is the time of processing:
+async is faster as each chunk will be handled asynchronously.
+"""
+
 import asyncio
 
 # pip install zstandard
@@ -16,7 +35,7 @@ class Decoder:
     async def _process_raw_hotels(self) -> None:
         """
         Handles raw lines from the archive.
-        Usually, it's the first and the last lines from the batches.
+        Usually, it's the first and the last lines from the chunks.
         """
         # combine rows by pairs
         # e.g. ['{"name":"Hotel","desc', '"ription":"Information"}', ...] ->
@@ -33,7 +52,7 @@ class Decoder:
             # do stuff with the hotel
             print(f"current hotel is {hotel_data['name']}")
 
-    async def _process_chunk(self, chunk):
+    async def _process_chunk(self, chunk: bytes) -> None:
         raw_data = chunk.decode("utf-8")
         # all JSON files split by the new line char "\n"
         # try to read one by one
@@ -51,8 +70,8 @@ class Decoder:
 
     async def parse_dump(self, filename: str) -> None:
         """
-        The sample of function that can parse a big zst dump.
-        You can find more here - https://docs.emergingtravel.com/#0b55c99a-7ef0-4a18-bbfe-fd1bdf35d08e
+        The sample of function that can parse a big zstd dump.
+        :param filename: path to a zstd archive
         """
         with open(filename, "rb") as fh:
             # make decompressor
@@ -65,6 +84,7 @@ class Decoder:
                         await self._process_raw_hotels()
                         break
                     # decrement the semaphore value
+                    # we can't run in the same time all chunks
                     await self.sem.acquire()
                     # run immediately
                     asyncio.create_task(self._process_chunk(chunk))
